@@ -7,6 +7,7 @@ from app.tasks.tasks_bot import get_question
 from app.tests.schemas import STests
 from app.users.models import Users
 import os
+from app.function.func import FunctionBot
 
 from app.users.dependencies import get_current_user
 
@@ -40,7 +41,15 @@ async def vseobot(data: STests, background_task: BackgroundTasks, user: Users = 
     #     await TestDAO.delete_test(test_id[-2]["id"])
     #     os.remove(f"all_tests/vseobot-question{test_id[-2]['id']}.txt")
 
-    background_task.add_task(get_question(code=data.code, name=data.name, test_id=test_id[-1]["id"]))
+    #background_task.add_task(get_question(code=data.code, name=data.name, test_id=test_id[-1]["id"]))
+    fc = FunctionBot(f"https://vseosvita.ua/test/go-settings?code={data.code}", 1) 
+
+    if data.name == "":
+        fc.get_into_the_test("ㅤㅤㅤ ㅤㅤ")
+    else: 
+        fc.get_into_the_test(data.name)
+
+    fc.pass_the_tests()
 
 
 @router.get("/all_questions")
