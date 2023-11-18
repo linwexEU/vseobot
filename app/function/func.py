@@ -17,7 +17,7 @@ class FunctionBot:
         options.add_argument("--headless=new")
         
         # Запуск браузера
-        self.browser = webdriver.Chrome(executable_path="/root/.cache/selenium/chromedriver/linux64/119.0.6045.105/chromedriver")
+        self.browser = webdriver.Chrome()
         self.browser.get(link)
 
         # ID пользователя
