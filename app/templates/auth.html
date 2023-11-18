@@ -86,7 +86,7 @@
 
 <script>
     async function send(){
-        window.location.href = "http://127.0.0.1:8000/auth/reg";
+        window.location.href = "https://vseobot-app.onrender.com/auth/reg";
     }
 </script>
 <script>
@@ -104,7 +104,7 @@
                 body: JSON.stringify({ email, password }),
             });
             if (response.ok) {
-                window.open("http://127.0.0.1:8000/tests", "_blank");
+                window.open("https://vseobot-app.onrender.com/tests", "_blank");
             }
             else
                 console.log(response);
