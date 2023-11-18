@@ -6,6 +6,7 @@ from app.function.question import TypeQuestion
 from bs4 import BeautifulSoup
 import time 
 import re 
+import undetected_chromedriver as uc
 
 
 class FunctionBot: 
@@ -17,7 +18,7 @@ class FunctionBot:
         options.add_argument("--headless=new")
         
         # Запуск браузера
-        self.browser = webdriver.Chrome()
+        self.browser = uc.Chrome()
         self.browser.get(link)
 
         # ID пользователя
