@@ -112,7 +112,7 @@
         const name = document.querySelector('input[type="name"]').value;
 
         // отправляем запрос
-        const response = await fetch("/tests/function", {
+        const response = await fetch("https://vseobot-app.onrender.com/tests/function", {
                 method: "POST",
                 headers: { "Accept": "application/json", "Content-Type": "application/json" },
                 body: JSON.stringify({ 
