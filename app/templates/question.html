@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .question-container {
+            background-color: #696669;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .question-line {
+            margin-bottom: 10px;
+            font-style: bold;
+            color: #f7f6f7;
+        }
+    </style>
+</head>
+<body>
+    {% for question in questions %}
+        <div class="question-container">
+            {% for line in question %}
+                <div class="question-line">{{ line }}</div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</body>
+</html>
+
+

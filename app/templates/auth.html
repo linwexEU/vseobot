@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vseobot Логин</title>
+    <style>
+        body {
+            background-color: #394240; /* Темно-зеленый цвет фона */
+            color: #E0E0E0; /* Белый цвет текста */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #617F7F;; /* Зеленый цвет верхней части страницы */
+            padding: 10px;
+            text-align: right;
+        }
+
+        #registration-button {
+            background-color: #2E3B3B; /* Темно-зеленый цвет кнопки */
+            color: #FFF; /* Белый цвет текста кнопки */
+            padding: 10px 15px;
+            margin-top: 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #registration-container,
+        #login-container {
+            background-color: #617F7F; /* Темно-зеленый цвет контейнера */
+            padding: 20px;
+            border-radius: 10px;
+            margin: 50px auto;
+            width: 300px;
+        }
+
+        h1 {
+            color: #FFF; /* Белый цвет заголовка */
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #2E3B3B; /* Темно-зеленый цвет рамки */
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2E3B3B; /* Темно-зеленый цвет кнопки */
+            color: #FFF; /* Белый цвет текста кнопки */
+            padding: 10px 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #394240; /* Темно-зеленый цвет при наведении */
+        }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <button onclick="send()" id="registration-button">Регистрация</button>
+</div>
+
+<div id="login-container">
+    <h1>Vseobot</h1>
+    <form>
+        <input type="email" placeholder="Введите вашу почту" required>
+        <input type="password" placeholder="Введите пароль" required>
+        <button onclick="go()" type="submit">Войти</button>
+    </form>
+</div>
+
+<script>
+    async function send(){
+        window.location.href = "http://127.0.0.1:8000/auth/reg";
+    }
+</script>
+<script>
+     async function go() {
+        const email = document.querySelector('input[type="email"]').value;
+        const password = document.querySelector('input[type="password"]').value;
+
+
+        try {
+            const response = await fetch('/auth/login_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+            if (response.ok) {
+                window.open("http://127.0.0.1:8000/tests", "_blank");
+            }
+            else
+                console.log(response);
+        } catch (error) {
+            console.error('Ошибка при отправке запроса:', error.message);
+        }
+    }
+</script>
+
+</body>
+</html>

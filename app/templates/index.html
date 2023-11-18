@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vseobot</title>
+    <style>
+        body {
+            background-color: #333; /* Серый цвет фона */
+            color: #333; /* Темно-серый цвет текста */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            background-color: #696669; /* Белый цвет контейнера */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень контейнера */
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            color: rgb(23, 255, 108);
+        }
+
+        h4 {
+            color: #65bcff; /* Ярко-зеленый цвет для заголовка */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc; /* Светло-серый цвет рамки */
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50; /* Ярко-зеленый цвет кнопки */
+            color: #FFF; /* Белый цвет текста кнопки */
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Ярко-зеленый цвет при наведении */
+        }
+
+        button.view-questions {
+            background-color: #dd1551; /* Dark pink color for the "Посмотреть вопросы" button */
+            color: #FFF; /* White text color */
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px; /* Add some margin to separate the buttons */
+        }
+
+        button.view-questions:hover {
+            background-color: #D1476A; /* Dark pink color when hovering */
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1>Vseobot</h1>
+    <h4>Пользователь: {{ user_name }}</h4>
+    <div class="form-group">
+        <form>
+            <input type="code" placeholder="Введите код" required>
+        </form>
+    </div>
+
+    <div class="form-group">
+        <form>
+            <input type="name" placeholder="Введите имя" required>
+        </form>
+    </div>
+
+    <button onclick="send()">Старт</button>
+    <button class="view-questions" onclick="viewQuestions()">Посмотреть вопросы</button>
+</div>
+
+<script>
+    async function viewQuestions(){
+        window.location.href = "http://127.0.0.1:8000/tests/all_questions";
+    }
+</script>
+
+<script>
+    async function send(){
+ 
+        // получаем введеное в поле имя и возраст
+        const code = document.querySelector('input[type="code"]').value;
+        const name = document.querySelector('input[type="name"]').value;
+
+        // отправляем запрос
+        const response = await fetch("/tests/function", {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({ 
+                    code: code,
+                    name: name
+                })
+            });
+        }
+</script>
+
+</body>
+</html>
