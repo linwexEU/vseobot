@@ -35,6 +35,7 @@ async def vseobot(data: STests, background_task: BackgroundTasks, user: Users = 
     
     await TestDAO.add(user_id=user_id["id"])
     test_id = await get_id_test(user_id["id"])
+    print(test_id)
     if len(test_id) == 2: 
         await TestDAO.delete_test(test_id[-2]["id"])
         os.remove(f"all_tests/vseobot-question{test_id[-2]['id']}.txt")
