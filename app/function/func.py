@@ -17,7 +17,7 @@ class FunctionBot:
         options.add_argument("--headless=new")
         
         # Запуск браузера
-        self.browser = webdriver.Chrome(options=options)
+        self.browser = webdriver.Chrome()
         self.browser.get(link)
 
         # ID пользователя
