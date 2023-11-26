@@ -2,11 +2,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By 
 from selenium.webdriver.support import expected_conditions as EC 
 from selenium.webdriver.support.ui import WebDriverWait
-from app.function.question import TypeQuestion 
+from question import TypeQuestion 
 from bs4 import BeautifulSoup
+import undetected_chromedriver
 import time 
 import re 
-import undetected_chromedriver as uc
 
 
 class FunctionBot: 
@@ -15,18 +15,25 @@ class FunctionBot:
     def __init__(self, link, test_id): 
         # Настройки для браузера
         options = webdriver.ChromeOptions() 
-        options.add_argument("--headless=new")
-        
+        options.add_argument('--no-sandbox')
+        #options.add_argument("--headless")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument('--disable-popup-blocking')
+        options.add_argument("--disable-blink-features=AutomationControlled")
+
+
         # Запуск браузера
-        self.browser = uc.Chrome()
+        self.browser = undetected_chromedriver.Chrome(options=options)
         self.browser.get(link)
 
-        # ID пользователя
-        self.test_id = test_id
-        
+        self.browser.execute_script(f"window.open('{link}', '_blank')")
+
         WebDriverWait(self.browser, 60).until( 
             EC.presence_of_all_elements_located((By.XPATH, "//button[@class='vo-go-login__btn orange']"))
         )
+
+        # ID пользователя
+        self.test_id = test_id
 
         # Количество вопросов в тесте
         self.count_of_question = None
@@ -41,6 +48,9 @@ class FunctionBot:
         self.file_question = None 
 
     def get_into_the_test(self, name_for_test="ㅤㅤㅤ ㅤㅤ"):
+        self.browser.switch_to.window(self.browser.window_handles[0])
+        time.sleep(1)
+
         # Нажатие подтверждающей кнопки
         confirm_button = self.browser.find_element(By.XPATH, "//button[@class='vo-go-login__btn orange']")
         confirm_button.click() 
@@ -51,7 +61,8 @@ class FunctionBot:
         
         # Получение названия теста
         self.name_of_the_test = self.browser.find_element(By.XPATH, "//p[@class='a-center-class']").text.split("\n\n")[0].split(":")[-1].strip().replace("\"", "")
-        #self.name_of_the_test = "vseobot-question"
+
+        # Создание сайта
         self.file_question = CreateFile(self.name_of_the_test, self.test_id)
 
         # Ввод имени (по умолчанию невидимый ник)
@@ -392,9 +403,6 @@ class CreateFile:
 
 
 if __name__ == "__main__":
-    fc = FunctionBot("https://vseosvita.ua/test/go-settings?code=zzt827")
-    fc.get_into_the_test("Узун Женя")
+    fc = FunctionBot("https://vseosvita.ua/test/go-settings?code=hkj787", 1)
+    fc.get_into_the_test()
     fc.pass_the_tests()
-
-
-
