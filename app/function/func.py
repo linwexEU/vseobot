@@ -17,10 +17,6 @@ class FunctionBot:
         options = webdriver.ChromeOptions() 
         options.add_argument('--no-sandbox')
         options.add_argument("--headless")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument('--disable-popup-blocking')
-        options.add_argument("--disable-blink-features=AutomationControlled")
-
 
         # Запуск браузера
         self.browser = undetected_chromedriver.Chrome(options=options)
@@ -321,11 +317,11 @@ class CreateFile:
         self.name_of_the_test = name_of_the_test
         self.count = 1 
         self.test_id = test_id
-        with open(f"all_tests/vseobot-question{self.test_id}.txt", "w", encoding="utf-8") as file:
+        with open(fr"all_tests\vseobot-question{self.test_id}.txt", "w", encoding="utf-8") as file:
             file.write("Done by vseobot 0.1 (linwexEU)\n")
 
     def add_question(self, type_question, question): 
-        with open(f"all_tests/vseobot-question{self.test_id}.txt", "a", encoding="utf-8") as file:
+        with open(fr"all_tests\vseobot-question{self.test_id}.txt", "a", encoding="utf-8") as file:
             # З ОДНІЄЮ ПРАВИЛЬНОЮ ВІДПОВІДДЮ | З КІЛЬКОМА ПРАВИЛЬНИМИ ВІДПОВІДЯМИ 
             if  type_question == TypeQuestion.ONE_CORECT_ANSWER.value:
                 file.write("\n(З ОДНІЄЮ ПРАВИЛЬНОЮ ВІДПОВІДДЮ | З КІЛЬКОМА ПРАВИЛЬНИМИ ВІДПОВІДЯМИ)\n") 
