@@ -16,6 +16,7 @@ class FunctionBot:
         # Настройки для браузера
         options = webdriver.ChromeOptions() 
         options.add_argument('--no-sandbox')
+        options.add_argument("--disable-popup-blocking")
         options.add_argument("--headless")
 
         # Запуск браузера
